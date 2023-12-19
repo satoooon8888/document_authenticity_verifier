@@ -2,7 +2,7 @@
     "type": "object",
     "properties": {
         "id": {
-            "description": "A unique URL providing this claim",
+            "description": "A unique URL of this claim",
             "type": "string",
             "format": "uri"
         },
