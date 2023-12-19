@@ -20,11 +20,12 @@ Deno.test("fetch valid claim", async () => {
     return new Response(JSON.stringify(claimMap[url]));
   });
 
-  const claim = await fetchClaim("test:claim-1");
-
-  assertEquals(claim, claimMap["test:claim-1"]);
-
-  fetchStub.restore();
+  try {
+    const claim = await fetchClaim("test:claim-1");
+    assertEquals(claim, claimMap["test:claim-1"]);
+  } finally {
+    fetchStub.restore();
+  }
 });
 
 Deno.test("fetch invalid claim", async () => {
