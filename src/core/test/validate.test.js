@@ -4,6 +4,7 @@ import { validateClaim } from "../validate.js";
 
 Deno.test("validate valid claim", () => {
   const claim = {
+    id: "test:claim-1",
     subject: "test:subject-1",
     authenticity: true,
     premises: [],
@@ -14,6 +15,7 @@ Deno.test("validate valid claim", () => {
 
 Deno.test("validate invalid claim", () => {
   const claim = {
+    id: "test:claim-1",
     subject: { invalid: true },
     authenticity: true,
     premises: [],

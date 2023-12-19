@@ -10,6 +10,7 @@ import { fetchClaim } from "../fetch.js";
 Deno.test("fetch valid claim", async () => {
   const claimMap = {
     "test:claim-1": {
+      id: "test:claim-1",
       subject: "test:subject-1",
       authenticity: true,
       premises: [],
@@ -31,6 +32,7 @@ Deno.test("fetch valid claim", async () => {
 Deno.test("fetch invalid claim", async () => {
   const claimMap = {
     "test:claim-1": {
+      id: "test:claim-1",
       subject: { invalid: 1 },
       authenticity: true,
       premises: [],
