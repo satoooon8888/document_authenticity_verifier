@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "subject": {
+            "description": "A URL this claim refers to",
+            "type": "string",
+            "format": "uri"
+        },
+        "authenticity": {
+            "description": "Is this claim true",
+            "type": "boolean"
+        },
+        "premises": {
+            "description": "URLs of the premise of this claim",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "format": "uri"
+            }
+        }
+    }
+}
