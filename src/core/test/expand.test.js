@@ -3,9 +3,9 @@ import {
   assertRejects,
 } from "https://deno.land/std@0.209.0/testing/asserts.ts";
 
-import { stub } from "https://deno.land/std@0.209.0/testing/mock.ts";
-
 import { buildFullyExpandedClaim } from "../expand.js";
+
+import { stubClaims } from "./util.js";
 
 Deno.test("expand single claim", async () => {
   const claim = {
@@ -36,23 +36,18 @@ Deno.test("expand nested claim", async () => {
     },
   };
 
-  const fetchStub = stub(globalThis, "fetch", async (url) => {
-    return new Response(JSON.stringify(claimMap[url]));
-  });
+  const doStub = stubClaims(claimMap);
 
-  const expectdClaim = {
-    id: "test:claim-1",
-    subject: "test:subject-1",
-    authenticity: true,
-    premises: [claimMap["test:claim-2"]],
-  };
-
-  try {
+  await doStub(async () => {
+    const expectdClaim = {
+      id: "test:claim-1",
+      subject: "test:subject-1",
+      authenticity: true,
+      premises: [claimMap["test:claim-2"]],
+    };
     const expandedClaim = await buildFullyExpandedClaim(
       claimMap["test:claim-1"],
     );
     assertEquals(expandedClaim, expectdClaim);
-  } finally {
-    fetchStub.restore();
-  }
+  });
 });

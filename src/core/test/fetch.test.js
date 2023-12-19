@@ -3,9 +3,9 @@ import {
   assertRejects,
 } from "https://deno.land/std@0.209.0/testing/asserts.ts";
 
-import { stub } from "https://deno.land/std@0.209.0/testing/mock.ts";
-
 import { fetchClaim } from "../fetch.js";
+
+import { stubClaims } from "./util.js";
 
 Deno.test("fetch valid claim", async () => {
   const claimMap = {
@@ -17,16 +17,11 @@ Deno.test("fetch valid claim", async () => {
     },
   };
 
-  const fetchStub = stub(globalThis, "fetch", async (url) => {
-    return new Response(JSON.stringify(claimMap[url]));
-  });
-
-  try {
+  const doStub = stubClaims(claimMap);
+  await doStub(async () => {
     const claim = await fetchClaim("test:claim-1");
     assertEquals(claim, claimMap["test:claim-1"]);
-  } finally {
-    fetchStub.restore();
-  }
+  });
 });
 
 Deno.test("fetch invalid claim", async () => {
@@ -39,17 +34,15 @@ Deno.test("fetch invalid claim", async () => {
     },
   };
 
-  const fetchStub = stub(globalThis, "fetch", async (url) => {
-    return new Response(JSON.stringify(claimMap[url]));
+  const doStub = stubClaims(claimMap);
+
+  await doStub(async () => {
+    await assertRejects(
+      async () => {
+        await fetchClaim("test:claim-1");
+      },
+      Error,
+      "Got an invalid claim",
+    );
   });
-
-  await assertRejects(
-    async () => {
-      await fetchClaim("test:claim-1");
-    },
-    Error,
-    "Got an invalid claim",
-  );
-
-  fetchStub.restore();
 });
