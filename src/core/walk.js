@@ -1,6 +1,6 @@
 import { fetchClaim } from "./fetch.js";
 
-const fetchWholeClaimMap = async (
+const walkWholeClaimMap = async (
   claimId,
 ) => {
   const claimMap = {};
@@ -21,7 +21,7 @@ const fetchWholeClaimMap = async (
     // console.log("finished", finished);
     // console.log("stack", stack);
     if (flag == "down") {
-      // 行きがけ
+      // 行きがけの処理
       seen.add(claimId);
       const claim = await fetchClaim(claimId);
       claimMap[claimId] = claim;
@@ -37,11 +37,15 @@ const fetchWholeClaimMap = async (
         stack.push([premiseId, "down"]);
       });
     } else if (flag === "up") {
-      // 帰りがけ
+      // 帰りがけの処理
+      claimMap[claimId].soundness = claim.premises.every((premiseId) =>
+        claimMap[premiseId].authenticity
+      );
+
       finished.add(claimId);
     }
   }
   return { claimMap: claimMap, errors: errors };
 };
 
-export { fetchWholeClaimMap };
+export { walkWholeClaimMap; };
