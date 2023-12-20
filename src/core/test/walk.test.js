@@ -17,11 +17,11 @@ Deno.test("walk with single claim", async () => {
   const doStub = stubClaims(claimMap);
 
   await doStub(async () => {
-    const { claimMap: fetchedClaimMap, errors } = await walkWholeClaimMap(
-      "test:claim-1",
-    );
+    const { claimMap: fetchedClaimMap, errors, authenticated } =
+      await walkWholeClaimMap("test:claim-1");
     assertEquals(claimMap, fetchedClaimMap);
     assertEquals(errors, []);
+    assertEquals(authenticated, { "test:claim-1": true });
   });
 });
 
@@ -31,7 +31,7 @@ Deno.test("walk with nested claim", async () => {
       id: "test:claim-1",
       subject: "test:subject-1",
       authenticity: true,
-      premises: ["test:claim-2", "test:claim-3", "test:claim-5"],
+      premises: ["test:claim-2", "test:claim-5"],
     },
     "test:claim-2": {
       id: "test:claim-2",
@@ -42,7 +42,7 @@ Deno.test("walk with nested claim", async () => {
     "test:claim-3": {
       id: "test:claim-3",
       subject: "test:subject-3",
-      authenticity: true,
+      authenticity: false,
       premises: ["test:claim-5", "test:claim-4"],
     },
     "test:claim-4": {
@@ -62,11 +62,17 @@ Deno.test("walk with nested claim", async () => {
   const doStub = stubClaims(claimMap);
 
   await doStub(async () => {
-    const { claimMap: fetchedClaimMap, errors } = await walkWholeClaimMap(
-      "test:claim-1",
-    );
+    const { claimMap: fetchedClaimMap, errors, authenticated } =
+      await walkWholeClaimMap("test:claim-1");
     assertEquals(claimMap, fetchedClaimMap);
     assertEquals(errors, []);
+    assertEquals(authenticated, {
+      "test:claim-1": false,
+      "test:claim-2": false,
+      "test:claim-3": false,
+      "test:claim-4": true,
+      "test:claim-5": true,
+    });
   });
 });
 

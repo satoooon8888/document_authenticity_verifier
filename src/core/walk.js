@@ -4,10 +4,11 @@ const walkWholeClaimMap = async (
   claimId,
 ) => {
   const claimMap = {};
+  const authenticated = {};
   const errors = [];
 
   // DFS
-  const stack = [[claimId, "down"]];
+  const stack = [[claimId, "up"], [claimId, "down"]];
   const seen = new Set();
   const finished = new Set();
 
@@ -38,14 +39,14 @@ const walkWholeClaimMap = async (
       });
     } else if (flag === "up") {
       // 帰りがけの処理
-      claimMap[claimId].soundness = claim.premises.every((premiseId) =>
-        claimMap[premiseId].authenticity
-      );
+      authenticated[claimId] = claimMap[claimId].premises.every(
+        (premiseId) => authenticated[premiseId],
+      ) && claimMap[claimId].authenticity;
 
       finished.add(claimId);
     }
   }
-  return { claimMap: claimMap, errors: errors };
+  return { claimMap, authenticated, errors };
 };
 
-export { walkWholeClaimMap; };
+export { walkWholeClaimMap };
