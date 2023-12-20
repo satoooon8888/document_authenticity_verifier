@@ -13,7 +13,13 @@ const fetchWholeClaimMap = async (
 
   while (stack.length !== 0) {
     const [claimId, flag] = stack.pop();
-    console.log(claimId, flag, stack, seen, finished);
+    // console.table({
+    //   "claimId": claimId,
+    //   "flag": flag,
+    // });
+    // console.log("seen", seen);
+    // console.log("finished", finished);
+    // console.log("stack", stack);
     if (flag == "down") {
       // 行きがけ
       seen.add(claimId);
