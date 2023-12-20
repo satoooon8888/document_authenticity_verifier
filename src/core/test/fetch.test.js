@@ -46,3 +46,18 @@ Deno.test("fetch invalid claim", async () => {
     );
   });
 });
+
+Deno.test("fetch unexists claim", async () => {
+  const claimMap = {};
+
+  const doStub = stubClaims(claimMap);
+  await doStub(async () => {
+    await assertRejects(
+      async () => {
+        await fetchClaim("test:claim-unexists");
+      },
+      Error,
+      "Claim is not found",
+    );
+  });
+});
