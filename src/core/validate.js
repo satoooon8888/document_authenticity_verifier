@@ -10,4 +10,4 @@ addFormats(ajv);
 
 const validateClaim = ajv.compile(claimSchema);
 
-export { validateClaim };
+export { claimSchema, validateClaim };
