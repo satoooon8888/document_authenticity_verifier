@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.209.0/testing/asserts.ts";
 
-import { walkWholeClaimMap } from "../map.js";
+import { walkWholeClaimMap } from "../walk.js";
 
 import { stubClaims } from "./util.js";
 
