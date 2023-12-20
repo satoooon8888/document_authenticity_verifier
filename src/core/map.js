@@ -21,8 +21,8 @@ const fetchWholeClaimMap = async (
       claimMap[claimId] = claim;
 
       claim.premises.map((premiseId) => {
-        if (finished.has(premiseid)) return;
-        if (seen.has(premiseid) && !finished.has(premiseid)) {
+        if (finished.has(premiseId)) return;
+        if (seen.has(premiseId) && !finished.has(premiseId)) {
           // Circular Reference
           errors.push({ message: "Circular reference is detected" });
           return;
