@@ -69,3 +69,90 @@ Deno.test("fetch claimMap with nested claim", async () => {
     assertEquals(errors, []);
   });
 });
+
+Deno.test("detect circular reference", async () => {
+  const claimMap = {
+    "test:claim-1": {
+      id: "test:claim-1",
+      subject: "test:subject-1",
+      authenticity: true,
+      premises: ["test:claim-1"],
+    },
+  };
+
+  const doStub = stubClaims(claimMap);
+
+  await doStub(async () => {
+    const { claimMap: fetchedClaimMap, errors } = await fetchWholeClaimMap(
+      "test:claim-1",
+    );
+    assertEquals(claimMap, fetchedClaimMap);
+    assertEquals(errors, [{ "message": "Circular reference is detected" }]);
+  });
+});
+
+Deno.test("detect circular reference 2", async () => {
+  const claimMap = {
+    "test:claim-1": {
+      id: "test:claim-1",
+      subject: "test:subject-1",
+      authenticity: true,
+      premises: ["test:claim-2"],
+    },
+    "test:claim-2": {
+      id: "test:claim-2",
+      subject: "test:subject-2",
+      authenticity: true,
+      premises: ["test:claim-3"],
+    },
+    "test:claim-3": {
+      id: "test:claim-3",
+      subject: "test:subject-3",
+      authenticity: true,
+      premises: ["test:claim-1"],
+    },
+  };
+
+  const doStub = stubClaims(claimMap);
+
+  await doStub(async () => {
+    const { claimMap: fetchedClaimMap, errors } = await fetchWholeClaimMap(
+      "test:claim-1",
+    );
+    assertEquals(claimMap, fetchedClaimMap);
+    assertEquals(errors, [{ "message": "Circular reference is detected" }]);
+  });
+});
+
+Deno.test("detect circular reference 2", async () => {
+  const claimMap = {
+    "test:claim-1": {
+      id: "test:claim-1",
+      subject: "test:subject-1",
+      authenticity: true,
+      premises: ["test:claim-2"],
+    },
+    "test:claim-2": {
+      id: "test:claim-2",
+      subject: "test:subject-2",
+      authenticity: true,
+      premises: ["test:claim-3"],
+    },
+    "test:claim-3": {
+      id: "test:claim-3",
+      subject: "test:subject-3",
+      authenticity: true,
+      premises: ["test:claim-1"],
+    },
+  };
+
+  const doStub = stubClaims(claimMap);
+
+  await doStub(async () => {
+    const { claimMap: fetchedClaimMap, errors } = await fetchWholeClaimMap(
+      "test:claim-1",
+    );
+    assertEquals(claimMap, fetchedClaimMap);
+    assertEquals(errors, [{ "message": "Circular reference is detected" }]);
+  });
+});
