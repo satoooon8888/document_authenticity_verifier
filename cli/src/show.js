@@ -1,7 +1,6 @@
 import { fetchClaim } from "../../core/src/mod.js";
 
-const show = async (url) => {
-  const claim = await fetchClaim(url);
+const showClaim = (claim) => {
   console.table({
     id: claim.id,
     subject: claim.subject,
@@ -14,4 +13,9 @@ const show = async (url) => {
   });
 };
 
-export { show };
+const show = async (url) => {
+  const claim = await fetchClaim(url);
+  showClaim(claim);
+};
+
+export { show, showClaim };
