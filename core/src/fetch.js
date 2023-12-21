@@ -7,7 +7,10 @@ const fetchClaim = async (url) => {
   }
   const claim = await response.json();
   if (!validateClaim(claim)) {
-    throw Error("Got an invalid claim");
+    const err = new Error(`Claim validation failed`);
+    err.reasons = validateClaim.errors;
+    console.log("ValidationError: ", validateClaim.errors);
+    throw err;
   }
   return claim;
 };

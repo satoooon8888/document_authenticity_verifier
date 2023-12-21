@@ -42,7 +42,7 @@ Deno.test("fetch invalid claim", async () => {
         await fetchClaim("test:claim-1");
       },
       Error,
-      "Got an invalid claim",
+      "Claim validation failed",
     );
   });
 });
