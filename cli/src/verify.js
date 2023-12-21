@@ -4,7 +4,7 @@ const verify = async (url) => {
   const { claimMap, authenticated, errors } = await walkWholeClaimMap(url);
   console.log(claimMap);
   errors.map((error) => {
-    console.log(`[Error] ${error}`);
+    console.log(`[Error] ${JSON.stringify(error)}`);
   });
   Object.entries(authenticated)
     .filter(([id, v]) => v === false)
@@ -17,3 +17,5 @@ const verify = async (url) => {
     console.log(`[*] ${url} has unauthenticated claim!`);
   }
 };
+
+export { verify };

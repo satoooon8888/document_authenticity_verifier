@@ -1,6 +1,7 @@
 #!/usr/bin/env -S deno run --allow-net
 
 import { show } from "./show.js";
+import { verify } from "./verify.js";
 
 const showUsage = () => {
   console.log(`Usage: docauth show <url>`);
@@ -24,6 +25,14 @@ const cli = async (args) => {
         process.exit(1);
       }
       await show(args[1]);
+      break;
+    case "verify":
+      if (!args[1]) {
+        console.log("Error: url required");
+        showUsage();
+        process.exit(1);
+      }
+      await verify(args[1]);
       break;
     default:
       break;
