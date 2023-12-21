@@ -1,14 +1,21 @@
 import { Hono } from "https://deno.land/x/hono/mod.ts";
 
 import * as path from "https://deno.land/std/path/mod.ts";
+import * as fs from "https://deno.land/std/fs/mod.ts";
 
 const PORT = Deno.env.get("PORT") ?? "8000";
 
 const app = new Hono();
 
-app.get("/claim/:claimId", (c) => {
+app.get("/claim/:claimId", async (c) => {
   const claimId = c.req.param("claimId");
-  const claim = JSON.parse(Deno.readTextFileSync(path.join("claim", claimId)));
+  const claimPath = path.join("claim", claimId);
+
+  if (!fs.existsSync(claimPath)) {
+    return c.notFound();
+  }
+
+  const claim = JSON.parse(Deno.readTextFileSync(claimPath));
   claim.id = new URL(`/claim/${claimId}`, c.req.url);
   claim.premises = claim.premises.map((premiseId) =>
     new URL(`/claim/${premiseId}`, c.req.url)
