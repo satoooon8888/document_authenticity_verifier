@@ -1,0 +1,5 @@
+{
+  "subject": "subject:single-true",
+  "authenticity": true,
+  "premises": ["nested-circular.json"]
+}
