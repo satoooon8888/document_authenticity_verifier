@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "std/": "https://deno.land/x/std@0.209.0/",
+    "hono/": "https://deno.land/x/hono@v3.11.8/"
+  },
+  "tasks": {
+    "start": "cd src && deno run --allow-env --allow-read=claim/,index.html --allow-net ./index.js"
+  }
+}

@@ -1,7 +1,7 @@
-import { Hono } from "https://deno.land/x/hono/mod.ts";
+import { Hono } from "hono/mod.ts";
 
-import * as path from "https://deno.land/std/path/mod.ts";
-import * as fs from "https://deno.land/std/fs/mod.ts";
+import * as path from "std/path/mod.ts";
+import * as fs from "std/fs/mod.ts";
 
 const PORT = Deno.env.get("PORT") ?? "8000";
 

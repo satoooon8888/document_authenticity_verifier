@@ -1,4 +1,4 @@
-import { stub } from "https://deno.land/std@0.209.0/testing/mock.ts";
+import { stub } from "std/testing/mock.ts";
 
 const stubClaims = (claimMap) => {
   const callback = async (testAsyncFn) => {

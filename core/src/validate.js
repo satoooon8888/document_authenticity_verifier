@@ -1,5 +1,5 @@
-import Ajv from "https://esm.sh/ajv@8.12.0";
-import addFormats from "https://esm.sh/ajv-formats@2.1.1";
+import Ajv from "ajv";
+import addFormats from "ajv-formats";
 
 const { default: claimSchema } = await import("./schema/claim.schema.json", {
   assert: { type: "json" },

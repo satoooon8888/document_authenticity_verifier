@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertRejects,
-} from "https://deno.land/std@0.209.0/testing/asserts.ts";
+import { assertEquals, assertRejects } from "std/testing/asserts.ts";
 
 import { fetchClaim } from "../fetch.js";
 
