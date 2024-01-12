@@ -1,0 +1,5 @@
+services:
+  example:
+    build: ./example
+    ports:
+      - "8000:8000"

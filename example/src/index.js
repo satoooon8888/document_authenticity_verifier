@@ -1,15 +1,17 @@
-import { Hono } from "hono/mod.ts";
+import { Hono } from "../deps.js";
 
-import * as path from "std/path/mod.ts";
-import * as fs from "std/fs/mod.ts";
+import { fs, path } from "../deps.js";
 
-const PORT = Deno.env.get("PORT") ?? "8000";
+const PORT = "8000";
+
+const __dirname = path.dirname(path.fromFileUrl(import.meta.url));
+const template = Deno.readTextFileSync(path.join(__dirname, "./index.html"));
 
 const app = new Hono();
 
 app.get("/claim/:claimId", async (c) => {
   const claimId = c.req.param("claimId");
-  const claimPath = path.join("claim", claimId);
+  const claimPath = path.join(__dirname, "claim", claimId);
 
   if (!fs.existsSync(claimPath)) {
     return c.notFound();
@@ -25,7 +27,6 @@ app.get("/claim/:claimId", async (c) => {
 });
 
 app.get("/", (c) => {
-  const template = Deno.readTextFileSync("./index.html");
   return c.html(template);
 });
 
