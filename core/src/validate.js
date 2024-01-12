@@ -1,9 +1,7 @@
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
-const { default: claimSchema } = await import("./schema/claim.schema.json", {
-  assert: { type: "json" },
-});
+import claimSchema from "./schema/claim.schema.json" assert { type: "json" };
 
 const ajv = new Ajv();
 addFormats(ajv);
