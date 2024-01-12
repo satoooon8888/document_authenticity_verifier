@@ -1,0 +1,13 @@
+{
+  "version": "3",
+  "remote": {
+    "https://esm.sh/ajv-formats@2.1.1": "c9990ab89edff20a28f15d3355e3a98ad430496e11ea22cc4dc7ff6340e388d2",
+    "https://esm.sh/ajv@8.12.0": "c2f2040b013a01467729c72de4ea775f8361c76934509254defa2336049847ba",
+    "https://esm.sh/v135/ajv-formats@2.1.1/deno/ajv-formats.mjs": "99940e8f5faee3cc072e02ab947598779d5cfa13b7553a46047cb68e4105fe99",
+    "https://esm.sh/v135/ajv@8.12.0/deno/ajv.mjs": "bd55e10a3f9512fc5a0263185e0cae235f446d2d175d6af7d6d87127fdc1a10a",
+    "https://esm.sh/v135/ajv@8.12.0/deno/dist/compile/codegen.js": "a990340f4f62114ac7c062ac74d7929282eb8f8ecd0507160ff51e1fb7f96d89",
+    "https://esm.sh/v135/fast-deep-equal@3.1.3/deno/fast-deep-equal.mjs": "64f660f95839c8707928b30f235061c623f279ba4ad4b4e739c767e84478e446",
+    "https://esm.sh/v135/json-schema-traverse@1.0.0/deno/json-schema-traverse.mjs": "8efd283bc9e47460b1629905d2666102312334a073cd3ebbff19bc4ac88a0341",
+    "https://esm.sh/v135/uri-js@4.4.1/deno/uri-js.mjs": "ab1504e677d3076eb294f6ea2998f994a81652db307e723bfd26f60077529be3"
+  }
+}
