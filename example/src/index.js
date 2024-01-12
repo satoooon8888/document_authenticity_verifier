@@ -20,6 +20,7 @@ app.get("/claim/:claimId", async (c) => {
   claim.premises = claim.premises.map((premiseId) =>
     new URL(`/claim/${premiseId}`, c.req.url)
   );
+  c.header("Access-Control-Allow-Origin", "*");
   return c.json(claim);
 });
 
