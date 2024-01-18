@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@document-authenticity-verifier/core": "link:..\\core\\npm",
+    "@document-authenticity-verifier/core": "link:vendor\\core",
     "highlight.js": "^11.9.0",
     "next": "14.0.4",
     "react": "^18",

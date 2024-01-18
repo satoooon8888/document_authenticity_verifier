@@ -3,3 +3,7 @@ services:
     build: ./example
     ports:
       - "8000:8000"
+  web:
+    build: ./web
+    ports:
+      - "3000:3000"

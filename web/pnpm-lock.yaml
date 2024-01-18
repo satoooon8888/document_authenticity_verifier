@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@document-authenticity-verifier/core':
-    specifier: link:..\core\npm
-    version: link:../core/npm
+    specifier: link:vendor\core
+    version: link:vendor/core
   highlight.js:
     specifier: ^11.9.0
     version: 11.9.0
