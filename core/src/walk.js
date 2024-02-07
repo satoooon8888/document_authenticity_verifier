@@ -27,7 +27,35 @@ const walkWholeClaimMap = async (
       // 行きがけの処理
       seen.add(claimId);
       history.push(claimId);
-      const claim = await fetchClaim(claimId);
+      const claim = await (async () => {
+        try {
+          return await fetchClaim(claimId);
+        } catch (err) {
+          if (err.message === "Claim validation failed") {
+            errors.push({
+              message: "Invalid claim is found",
+              claimId: claimId
+            })
+          } else if (err.message === "Claim is not found") {
+            errors.push({
+              message: "Claim is not found",
+              claimId: claimId
+            })
+          } else {
+            errors.push({
+              message: "Failed to fetch claim",
+              errorMesasge: err.message,
+              claimId: claimId
+            })
+          }
+          return Promise.resolve({
+            id: claimId,
+            subject: "error:error",
+            authenticity: false,
+            premises: []
+          });
+        }
+      })();
       claimMap[claimId] = claim;
 
       claim.premises.map((premiseId) => {

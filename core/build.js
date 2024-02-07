@@ -9,6 +9,7 @@ await build({
   shims: {
     // see JS docs for overview and more options
     deno: true,
+    domException: true,
   },
   package: {
     // package.json properties
@@ -17,6 +18,7 @@ await build({
     description: "hogehoge",
   },
   importMap: "deno.json",
+  scriptModule: false,
 });
 
 

@@ -1,4 +1,4 @@
-import { Hono } from "../deps.js";
+import { Hono, serveStatic } from "../deps.js";
 
 import { fs, path } from "../deps.js";
 
@@ -19,12 +19,26 @@ app.get("/claim/:claimId", async (c) => {
 
   const claim = JSON.parse(Deno.readTextFileSync(claimPath));
   claim.id = new URL(`/claim/${claimId}`, c.req.url);
+  if (new URL(claim.subject).protocol === "article:") {
+    claim.subject = new URL(`/article/${new URL(claim.subject).pathname}`, c.req.url);
+  }
   claim.premises = claim.premises.map((premiseId) =>
     new URL(`/claim/${premiseId}`, c.req.url)
   );
   c.header("Access-Control-Allow-Origin", "*");
   return c.json(claim);
 });
+
+app.use("/article/*", async (c, next) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  await next();
+});
+
+app.get("/article/*",
+  serveStatic({
+    root: "./",
+  })
+);
 
 app.get("/", (c) => {
   return c.html(template);

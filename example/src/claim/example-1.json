@@ -1,0 +1,5 @@
+{
+  "subject": "article:example-1.html",
+  "authenticity": true,
+  "premises": ["example-2.json", "example-3.json"]
+}

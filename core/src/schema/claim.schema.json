@@ -2,12 +2,12 @@
     "type": "object",
     "properties": {
         "id": {
-            "description": "A unique URL of this claim",
+            "description": "A unique URI of this claim",
             "type": "string",
             "format": "uri"
         },
         "subject": {
-            "description": "A URL this claim refers to",
+            "description": "A URI this claim refers to",
             "type": "string",
             "format": "uri"
         },

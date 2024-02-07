@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function UrlForm({ action }) {
+export default function UrlForm({ action, submitMessage }) {
   const [url, setUrl] = useState("");
 
   const performAction = async (event) => {
@@ -23,7 +23,7 @@ export default function UrlForm({ action }) {
           class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           onClick={performAction}
         >
-          Verify
+          {submitMessage}
         </button>
       </span>
     </div>

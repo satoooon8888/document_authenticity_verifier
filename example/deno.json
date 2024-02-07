@@ -4,6 +4,6 @@
     "hono/": "https://deno.land/x/hono@v3.11.8/"
   },
   "tasks": {
-    "start": "cd src && deno run --allow-env --allow-read=claim/,index.html --allow-net ./index.js"
+    "start": "cd src && deno run --allow-env --allow-read=claim/,article/,index.html --allow-net ./index.js"
   }
 }

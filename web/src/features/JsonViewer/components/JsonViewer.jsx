@@ -15,7 +15,7 @@ export default function JsonViewer() {
   };
   return (
     <div class="w-full">
-      <UrlForm action={displayJson}></UrlForm>
+      <UrlForm action={displayJson} submitMessage="Verify"></UrlForm>
       <JsonView json={json}></JsonView>
     </div>
   );

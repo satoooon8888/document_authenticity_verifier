@@ -1,5 +1,5 @@
 {
-  "subject": "subject:single-circular-reference",
+  "subject": "subject:single-circular",
   "authenticity": true,
-  "premises": ["single-circular-reference.json"]
+  "premises": ["single-circular.json"]
 }

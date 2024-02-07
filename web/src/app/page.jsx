@@ -1,6 +1,7 @@
 "use client";
 
-import JsonViewer from "../features/JsonViewer/components/JsonViewer.jsx";
+import Link from 'next/link';
+import BlackButton from '../components/BlackButton.jsx';
 
 export default function Home() {
   return (
@@ -8,7 +9,14 @@ export default function Home() {
       <div class="flex">
         <p class="text-4xl p-16 font-bold">Document Authenticity Verifier</p>
       </div>
-      <JsonViewer></JsonViewer>
+      <div class="flex rtl justify-center">
+        <div class="p-4">
+          <BlackButton><Link href="/jsonview">JSON View</Link></BlackButton>
+        </div>
+        <div class="p-4">
+          <BlackButton><Link href="/graphview">Graph View</Link></BlackButton>
+        </div>
+      </div>
     </main>
   );
 }
