@@ -12,4 +12,4 @@ RUN deno cache deps.js
 
 COPY . .
 
-CMD ["run", "--allow-net=0.0.0.0:8000", "--allow-read=src/", "src/index.js"]
+CMD ["task", "start"]

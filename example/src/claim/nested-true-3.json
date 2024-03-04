@@ -1,5 +1,8 @@
 {
-  "subject": "subject:single-true",
+  "subject": "subject:nested-true-3.html",
   "authenticity": true,
-  "premises": ["nested-true-4.json", "nested-true-5.json"]
+  "premises": [
+    "nested-true-4.json",
+    "nested-true-5.json"
+  ]
 }

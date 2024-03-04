@@ -14,9 +14,11 @@ const transformMapToGraphConnect = (claimMap) => {
   ).filter(link => link !== undefined);
 }
 
-export default function GraphView({ walkResult }) {
+export default function GraphView({ walkResult, url }) {
   const { claimMap, authenticated, errors } = walkResult;
   const d3Container = useRef(null);
+
+  // debugger;
 
   const getNodeColor = (id) => {
     if (!claimMap[id].authenticity) return "red";
@@ -42,7 +44,7 @@ export default function GraphView({ walkResult }) {
       return `Invalid claim is found: ${err.claimId}`;
     }
     if (err.message === "Failed to fetch claim") {
-      return `Failed to fetch claim: ${err.claimId} (${err.errorMessage})`;
+      return `Failed to fetch claim: ${err.claimId} ${err.errorMessage ? `(${err.errorMessage})` : ''}`;
     }
     return err.message;
   }
@@ -70,12 +72,26 @@ export default function GraphView({ walkResult }) {
     function arrowTransform({
       points
     }) {
-      const [[x1, y1], [x2, y2]] = points.slice(0, 2).toReversed().map(point => [point[0], point[1]+padding+fontSize/2]);
+      const [[x1, y1], [x2, y2]] = points.slice(0, 2).toReversed().map(point => [point[0], point[1]]);
       const angle = (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI + 90;
-      const [x, y] = [x1 + (x2 - x1) * 0.8, y1 + (y2 - y1) * 0.8];
-      console.log(x, y);
+      const [x, y] = [x1 + (x2 - x1) * 0.5, y1 + (y2 - y1) * 0.5];
       return `translate(${x}, ${y}) rotate(${angle})`;
     }
+
+    svg
+      .select(".links")
+      .selectAll("path")
+      .remove();
+    
+    svg
+      .select(".nodes")
+      .selectAll("g")
+      .remove();
+    
+    svg
+      .select(".arrows")
+      .selectAll("path")
+      .remove();
 
     // our raw data to render
     const data = transformMapToGraphConnect(claimMap);
@@ -166,23 +182,6 @@ export default function GraphView({ walkResult }) {
       .style("height", height + padding);
     const trans = svg.transition().duration(750);
 
-    svg
-      .select(".links")
-      .selectAll("path")
-      .remove();
-    
-    svg
-      .select(".nodes")
-      .selectAll("g")
-      .remove();
-    
-    svg
-      .select(".arrows")
-      .selectAll("path")
-      .remove();
-    
-    debugger;
-
 
     // nodes
     svg
@@ -226,7 +225,7 @@ export default function GraphView({ walkResult }) {
       .join((enter) =>
         enter
           .append("path")
-          .attr("d", ({ points }) => line(points.map(point => [point[0], point[1]+padding+fontSize/2])))
+          .attr("d", ({ points }) => line(points.map(point => [point[0], point[1]])))
           .attr("fill", "none")
           .attr("stroke-width", 3)
           .attr("stroke", ({ target }) => getNodeColor(target.data))
@@ -261,10 +260,25 @@ export default function GraphView({ walkResult }) {
   }, [d3Container.current, walkResult]);
   return (
     <div class="w-full p-16">
-      <div class="flex justify-center p-4">
+      <div class="flex-row p-4">
+        {authenticated && (authenticated[Object.keys(claimMap)[0]] ? (
+          <div class="flex justify-center p-2">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+              <p>Verification succeeded</p>
+            </div>
+          </div>
+        ) : (
+          <div class="flex justify-center p-2">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+              <p>Verification failed</p>
+            </div>
+          </div>
+        ))}
         {errors && errors.map(err => (
-          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
-            <p>{getErrorMessage(err)}</p>
+          <div class="flex justify-center p-2">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
+              <p>{getErrorMessage(err)}</p>
+            </div>
           </div>
         ))}
       </div>

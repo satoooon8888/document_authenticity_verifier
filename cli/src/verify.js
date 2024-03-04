@@ -4,9 +4,9 @@ import { showClaim } from "./show.js";
 
 const verify = async (url) => {
   const { claimMap, authenticated, errors } = await walkWholeClaimMap(url);
-  Object.entries(claimMap).map(([id, claim]) => {
-    showClaim(claim);
-  });
+  // Object.entries(claimMap).map(([id, claim]) => {
+  //   showClaim(claim);
+  // });
   errors.map((error) => {
     console.log(`[Error] ${JSON.stringify(error)}`);
   });
@@ -16,13 +16,13 @@ const verify = async (url) => {
       if (claimMap[id].authenticity) {
         console.log(`[Warning] ${id} has unauthenticated claim.`);
       } else {
-        console.log(`[Warning] ${id} is not authenticated by owner.`);
+        console.log(`[Warning] ${id} is not authenticated.`);
       }
     });
   if (authenticated[url]) {
-    console.log(`[*] ${url} is verified.`);
+    console.log(`[*] Verification succeeded`);
   } else {
-    console.log(`[*] failed to verify ${url}`);
+    console.log(`[*] Verification failed...`);
   }
 };
 

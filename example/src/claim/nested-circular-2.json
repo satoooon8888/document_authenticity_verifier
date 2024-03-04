@@ -1,5 +1,5 @@
 {
-  "subject": "subject:single-true",
+  "subject": "subject:circular-2",
   "authenticity": true,
   "premises": ["nested-circular-3.json", "nested-circular-4.json"]
 }

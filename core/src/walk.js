@@ -50,7 +50,7 @@ const walkWholeClaimMap = async (
           }
           return Promise.resolve({
             id: claimId,
-            subject: "error:error",
+            subject: `error:${claimId}`,
             authenticity: false,
             premises: []
           });

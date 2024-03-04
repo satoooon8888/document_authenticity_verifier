@@ -1,0 +1,5 @@
+{
+  "subject": "article:has-404-2.html",
+  "authenticity": true,
+  "premises": ["has-404-3.json", "has-404-4.json"]
+}
